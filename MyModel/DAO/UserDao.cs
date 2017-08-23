@@ -80,5 +80,25 @@ namespace MyModel.DAO
             }
 
         }
+        /// <summary>
+        /// Hàm đổi giá trị status từ True thành False và ngược lại
+        /// </summary>
+        /// <param name="id">id của user truyền vào</param>
+        /// <returns></returns>
+        public bool ChangeStatus(long id)
+        {
+            try
+            {
+                User user = db.Users.Find(id);
+                user.Status = !user.Status;
+                db.SaveChanges();
+                return user.Status;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
