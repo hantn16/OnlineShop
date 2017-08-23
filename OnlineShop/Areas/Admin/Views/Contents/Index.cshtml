@@ -1,0 +1,121 @@
+﻿@model IEnumerable<MyModel.EF.Content>
+
+@{
+    ViewBag.Title = "Quản lý bài viết";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{Danh Sách Bài Viết}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p>
+                    @Html.ActionLink("Thêm mới bài viết", "Create")
+                </p>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table id="ContentTable" class="table table-bordered table-hover table-striped text-center">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Category.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MetaTitle)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Image)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Detail)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MetaKeywords)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MetaDescription)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TopHot)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ViewCount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Tagstring)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr id="Row_@item.ID">
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Category.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MetaTitle)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Image)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Detail)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MetaKeywords)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MetaDescription)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TopHot)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ViewCount)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Tagstring)
+                                </td>
+                                <td class="form-inline">
+                                    <a href="/Admin/Contents/Edit/@item.ID"><i title="Sửa" class="fa fa-edit"></i></a>
+                                    <a href="/Admin/Contents/Detail/@item.ID"><i title="Chi tiết" class="fa fa-search-plus"></i></a>
+                                    @Ajax.ActionLink(" ", "Delete", new { @id = item.ID }, new AjaxOptions
+                                   {
+                                       Confirm = "Bạn có chắc chắn xóa bài viết này?",
+                                       OnComplete = "$('#Row_" + item.ID + "').remove()",
+                                       HttpMethod = "Delete"
+                                   }, new { @class = "fa fa-ban", @title = "Xóa" })
+                                </td>
+
+                            </tr>
+                        }
+
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

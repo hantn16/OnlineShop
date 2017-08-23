@@ -1,0 +1,6 @@
+D:\hoc tap\Projects\OnlineShop\MyTools\bin\Debug\MyTools.dll
+D:\hoc tap\Projects\OnlineShop\MyTools\bin\Debug\MyTools.pdb
+D:\hoc tap\Projects\OnlineShop\MyTools\obj\Debug\MyTools.csproj.CoreCompileInputs.cache
+D:\hoc tap\Projects\OnlineShop\MyTools\obj\Debug\MyTools.dll
+D:\hoc tap\Projects\OnlineShop\MyTools\obj\Debug\MyTools.pdb
+D:\hoc tap\Projects\OnlineShop\MyTools\obj\Debug\MyTools.csprojResolveAssemblyReference.cache
