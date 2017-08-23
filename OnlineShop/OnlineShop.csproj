@@ -1230,6 +1230,7 @@
     <Content Include="Assets\Admin\ckfinder\skins\v1\skin.js" />
     <Content Include="Assets\Admin\ckfinder\skins\v1\uipanel.css" />
     <Content Include="Assets\Admin\ckfinder\translations.txt" />
+    <Content Include="Assets\Admin\Mine\js\Controller\UserControllerJS.js" />
     <Content Include="Assets\Admin\Mine\js\myJS.js" />
     <Content Include="Content\PagedList.css" />
     <Content Include="favicon.ico" />
