@@ -18,5 +18,28 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             base.OnActionExecuting(filterContext);
         }
+        public enum AlertType
+        {
+            Danger = 0,
+            Success = 1,
+            Warning = 2,
+            Info = 3
+        }
+        protected void SetAlert(string message,AlertType alertType = AlertType.Info)
+        {
+            TempData["AlertMessage"] = message;
+            switch (alertType)
+            {
+                case AlertType.Danger: TempData["AlertType"] = "alert-danger";
+                    break;
+                case AlertType.Success: TempData["AlertType"] = "alert-success";
+                    break;
+                case AlertType.Warning: TempData ["AlertType"] = "alert-warning";
+                    break;
+                default:
+                    TempData["AlertType"] = "alert-info";
+                    break;
+            }
+        }
     }
 }

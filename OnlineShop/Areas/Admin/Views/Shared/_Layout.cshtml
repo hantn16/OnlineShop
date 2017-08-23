@@ -41,6 +41,10 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            @if (TempData["AlertMessage"] != null)
+            {
+                <div id="AlertBox" class="alert @TempData["AlertType"] hide">@TempData["AlertMessage"]</div>
+            }
             <!-- /.row -->
             @RenderBody()
             <!-- /.container-fluid -->

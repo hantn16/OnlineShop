@@ -44,6 +44,7 @@ namespace OnlineShop.Areas.Admin.Controllers
                 long id = dao.Insert(entity);
                 if (id>0)
                 {
+                    SetAlert("Tạo mới người dùng thành công", AlertType.Success);
                     return RedirectToAction("Index", "User");
                 }
                 else
@@ -67,6 +68,7 @@ namespace OnlineShop.Areas.Admin.Controllers
             user.ModifiedBy = session.UserName;
             if (new UserDao().Update(user))
             {
+                SetAlert("Cập nhật thông tin người dùng thành công", AlertType.Success);
                 return RedirectToAction("Index", "User");
             }
             else

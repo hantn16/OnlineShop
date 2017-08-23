@@ -56,7 +56,7 @@ namespace MyModel.EF
         public string ModifiedBy { get; set; }
 
         [Required(ErrorMessage = "Tình trạng kích hoạt không được phép để trống")]
-        [Display(Name = "IsActive")]
+        [Display(Name = "Tình trạng")]
         public bool Status { get; set; }
     }
 }
