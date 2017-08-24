@@ -16,7 +16,7 @@ namespace MyModel.EF
         public long ID { get; set; }
 
         [Display(Name = "Ảnh")]
-        [Required(ErrorMessage = "Not allow to be null or empty")]
+        [Required(ErrorMessage = "Ảnh không được phép để trống")]
         [StringLength(250)]
         public string Image { get; set; }
 

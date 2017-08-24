@@ -53,7 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DAO\AboutDao.cs" />
     <Compile Include="DAO\CategoryDao.cs" />
+    <Compile Include="DAO\ContentDao.cs" />
     <Compile Include="DAO\UserDao.cs" />
     <Compile Include="EF\About.cs" />
     <Compile Include="EF\Category.cs" />
@@ -80,6 +82,10 @@
     <Compile Include="Migrations\201708231531525_SecondMig.Designer.cs">
       <DependentUpon>201708231531525_SecondMig.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201708240037294_3rdMig.cs" />
+    <Compile Include="Migrations\201708240037294_3rdMig.Designer.cs">
+      <DependentUpon>201708240037294_3rdMig.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -102,6 +108,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201708231531525_SecondMig.resx">
       <DependentUpon>201708231531525_SecondMig.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708240037294_3rdMig.resx">
+      <DependentUpon>201708240037294_3rdMig.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MyModel.EF;
 using MyModel.DAO;
+using OnlineShop.Common;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -49,12 +50,21 @@ namespace OnlineShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "ID,Name,MetaTitle,Description,Image,CategoryID,Detail,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,MetaKeywords,MetaDescription,Status,TopHot,ViewCount,Tagstring")] Content content)
         {
             if (ModelState.IsValid)
             {
-                db.Contents.Add(content);
-                db.SaveChanges();
+                //Set CreatedBy, CreatedDate
+                content.CreatedDate = DateTime.Now;
+                UserLogin userLogin = (UserLogin)Session[CommonConstants.USER_SESSION];
+                content.CreatedBy = userLogin.UserName;
+
+                //Set default values
+                content.ViewCount = 0;
+
+                //Add content
+                new ContentDao().Insert(content);
                 return RedirectToAction("Index");
             }
 
@@ -89,8 +99,21 @@ namespace OnlineShop.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(content).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //Set ModifiedBy, ModifiedDate
+                content.ModifiedDate = DateTime.Now;
+                UserLogin userLogin = (UserLogin)Session[CommonConstants.USER_SESSION];
+                content.ModifiedBy = userLogin.UserName;
+                //Update entity
+                if (new ContentDao().Update(content))
+                {
+                    SetAlert("Cập nhật thông tin bài viết thành công", AlertType.Success);
+                    return RedirectToAction("Index", "Contents");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Cập nhật thông tin bài viết thất bại!!!");
+                }
+                return View("Index");
             }
             ViewBag.CategoryID = new SelectList(db.Categories, "ID", "Name", content.CategoryID);
             return View(content);
@@ -99,9 +122,9 @@ namespace OnlineShop.Areas.Admin.Controllers
         [HttpDelete]
         public ActionResult Delete(int id)
         {
-            if (!new CategoryDao().Delete(id))
+            if (!new ContentDao().Delete(id))
             {
-                ModelState.AddModelError("", "Xóa danh mục thất bại");
+                ModelState.AddModelError("", "Xóa bài viết thất bại");
             }
             return RedirectToAction("Index");
         }

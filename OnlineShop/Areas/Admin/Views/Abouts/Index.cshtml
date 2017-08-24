@@ -1,0 +1,73 @@
+﻿@model IEnumerable<MyModel.EF.About>
+
+@{
+    ViewBag.Title = "Quản lý About";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section header{Danh sách bài giới thiệu}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p>
+                    @Html.ActionLink("Thêm mới bài viết", "Create")
+                </p>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped text-center">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Description)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Image)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Status)
+                            </th>
+                            <th>#</th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Description)
+                                </td>
+                                <td>
+                                    <img src="@Html.DisplayFor(modelItem => item.Image)" style="width:96px" />
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td>
+                                    <a href="/Admin/Abouts/Edit/@item.ID"><i title="Sửa" class="fa fa-edit"></i></a>
+                                    <a href="/Admin/Abouts/Details/@item.ID"><i title="Chi tiết" class="fa fa-search-plus"></i></a>
+                                    @Ajax.ActionLink(" ","Delete",new { @id = item.ID},new AjaxOptions
+                               {
+                                   Confirm = "Bạn có chắc chắn xóa?",
+                                   OnComplete = "$('#Row_'"+item.ID+").remove()",
+                                   HttpMethod = "Delete"
+
+                               }, new { @class = "fa fa-ban",@title = "Xóa" })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

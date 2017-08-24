@@ -15,7 +15,7 @@ namespace MyModel.EF
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long ID { get; set; }
 
-        [Required(ErrorMessage = "Not Allow to be null or empty")]
+        [Required(ErrorMessage = "Tiêu đề không được phép để trống")]
         [Display(Name = "Tiêu đề")]
         [StringLength(250)]
         public string Name { get; set; }
@@ -35,7 +35,7 @@ namespace MyModel.EF
         [Display(Name = "Danh mục")]
         public long? CategoryID { get; set; }
 
-        //[Required(ErrorMessage = "Not Allow to be null or empty")]
+        [Required(ErrorMessage = "Nội dung không được phép để trống")]
         [Display(Name = "Nội dung")]
         [Column(TypeName = "ntext")]
         public string Detail { get; set; }

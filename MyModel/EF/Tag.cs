@@ -15,7 +15,7 @@ namespace MyModel.EF
         [StringLength(50)]
         public string ID { get; set; }
 
-        [Required(ErrorMessage = "Not Allow to be null or empty")]
+        [Required(ErrorMessage = "Tên tag không được phép để trống")]
         [StringLength(50)]
         public string Name { get; set; }
 

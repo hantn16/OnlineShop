@@ -16,7 +16,7 @@ namespace MyModel.EF
         public int ID { get; set; }
 
         [Display(Name = "Tên Menu")]
-        [Required(ErrorMessage = "Not Allow to be null or empty")]
+        [Required(ErrorMessage = "Tên Menu không được phép để trống")]
         [StringLength(50)]
         public string Text { get; set; }
 

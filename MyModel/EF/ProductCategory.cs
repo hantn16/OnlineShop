@@ -16,7 +16,7 @@ namespace MyModel.EF
         public long ID { get; set; }
 
         [Display(Name = "Tên danh mục sản phẩm")]
-        [Required(ErrorMessage = "Not allow to be null or empty")]
+        [Required(ErrorMessage = "Tên danh mục không được phép để trống")]
         [StringLength(250)]
         public string Name { get; set; }
 

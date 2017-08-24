@@ -22,7 +22,7 @@
                         <thead>
                             <tr>
                                 <th>
-                                    @Html.DisplayNameFor(model => model.Category.Name)
+                                    @Html.DisplayNameFor(model => model.CategoryID)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Name)
@@ -67,7 +67,7 @@
 
                                     <td class="form-inline">
                                         <a href="/Admin/Contents/Edit/@item.ID"><i title="Sửa" class="fa fa-edit"></i></a>
-                                        <a href="/Admin/Contents/Detail/@item.ID"><i title="Chi tiết" class="fa fa-search-plus"></i></a>
+                                        <a href="/Admin/Contents/Details/@item.ID"><i title="Chi tiết" class="fa fa-search-plus"></i></a>
                                         @Ajax.ActionLink(" ", "Delete", new { @id = item.ID }, new AjaxOptions
                                {
                                    Confirm = "Bạn có chắc chắn xóa bài viết này?",
@@ -80,7 +80,6 @@
                             }
                         </tbody>                       
                     </table>
-
                 </div>
             </div>
         </div>

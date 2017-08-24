@@ -15,7 +15,7 @@ namespace MyModel.EF
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
 
-        [Required(ErrorMessage = "Not Allow to be null or empty")]
+        [Required(ErrorMessage = "Họ tên không được phép để trống")]
         [Display(Name = "Họ tên")]
         [StringLength(50)]
         public string Name { get; set; }
@@ -32,7 +32,7 @@ namespace MyModel.EF
         [StringLength(50)]
         public string Address { get; set; }
 
-        [Required(ErrorMessage = "Not Allow to be null or empty")]
+        [Required(ErrorMessage = "Nội dung không được phép để trống")]
         [Display(Name = "Nội dung")]
         [StringLength(250)]
         public string Content { get; set; }

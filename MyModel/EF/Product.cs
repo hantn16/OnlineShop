@@ -16,12 +16,12 @@ namespace MyModel.EF
         public long ID { get; set; }
 
         [Display(Name = "Mã sản phẩm")]
-        [Required(ErrorMessage = "Not allow to be null or empty")]
+        [Required(ErrorMessage = "Mã sản phẩm không được phép để trống")]
         [StringLength(20)]
         public string Code { get; set; }
 
         [Display(Name = "Tên sản phẩm")]
-        [Required(ErrorMessage = "Not allow to be null or empty")]
+        [Required(ErrorMessage = "Tên sản phẩm không được phép để trống")]
         [StringLength(250)]
         public string Name { get; set; }
 
@@ -84,7 +84,7 @@ namespace MyModel.EF
         public string MetaDescription { get; set; }
 
         [Display(Name = "Tình trạng")]
-        [Required(ErrorMessage = "Not allow to be null or empty")]
+        [Required(ErrorMessage = "Tình trạng không được phép để trống")]
         public bool Status { get; set; }
 
         [Display(Name = "Ngày bắt đầu cho tophot")]

@@ -30,6 +30,7 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create(User entity)
         {
             if (ModelState.IsValid)
