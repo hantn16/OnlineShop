@@ -48,7 +48,7 @@ namespace MyModel.EF
         public decimal? PromotionPrice { get; set; }
 
         [Display(Name = "Bao gồm VAT")]
-        public bool? IncludeVAT { get; set; }
+        public bool IncludeVAT { get; set; }
 
         [Display(Name = "Số lượng")]
         public long? Quantity { get; set; }

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyModel.EF;
+using MyModel.DAO;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -94,29 +95,13 @@ namespace OnlineShop.Areas.Admin.Controllers
             return View(productCategory);
         }
 
-        // GET: Admin/ProductCategories/Delete/5
-        public ActionResult Delete(long? id)
+        [HttpDelete]
+        public ActionResult Delete(long id)
         {
-            if (id == null)
+            if (new ProductCategoryDao().Delete(id))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ModelState.AddModelError("DeleteFailed", "Xóa danh mục sản phẩm thất bại");
             }
-            ProductCategory productCategory = db.ProductCategories.Find(id);
-            if (productCategory == null)
-            {
-                return HttpNotFound();
-            }
-            return View(productCategory);
-        }
-
-        // POST: Admin/ProductCategories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
-        {
-            ProductCategory productCategory = db.ProductCategories.Find(id);
-            db.ProductCategories.Remove(productCategory);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

@@ -16,6 +16,7 @@ namespace MyModel.EF
         public long ID { get; set; }
 
         [Required(ErrorMessage = "Tên tài khoản không được phép để trống")]
+        [Index(IsUnique =true)]
         [Display(Name = "Tài khoản")]
         [StringLength(50)]
         public string UserName { get; set; }

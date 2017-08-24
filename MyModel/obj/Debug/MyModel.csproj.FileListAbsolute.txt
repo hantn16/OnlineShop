@@ -15,7 +15,5 @@ D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.csprojResolveAssemblyRe
 D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.csproj.CoreCompileInputs.cache
 D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.dll
 D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.pdb
-D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.Migrations.InitialCreate.resources
+D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.Migrations.Initial.resources
 D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.csproj.GenerateResource.Cache
-D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.Migrations.SecondMig.resources
-D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.Migrations._3rdMig.resources
