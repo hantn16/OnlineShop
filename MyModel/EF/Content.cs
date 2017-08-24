@@ -35,7 +35,7 @@ namespace MyModel.EF
         [Display(Name = "Danh mục")]
         public long? CategoryID { get; set; }
 
-        [Required(ErrorMessage = "Not Allow to be null or empty")]
+        //[Required(ErrorMessage = "Not Allow to be null or empty")]
         [Display(Name = "Nội dung")]
         [Column(TypeName = "ntext")]
         public string Detail { get; set; }

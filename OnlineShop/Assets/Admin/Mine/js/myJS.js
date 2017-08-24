@@ -1,7 +1,7 @@
 ﻿$(document).ready(function () {
 
     $('#AlertBox').removeClass('hide');
-    $('#AlertBox').delay(10000).slideUp(5000);
+    $('#AlertBox').delay(1000).slideUp(500);
 
     $('#userindex').DataTable({
         "lengthMenu": [5, 10, 25, 50, 75, 100]

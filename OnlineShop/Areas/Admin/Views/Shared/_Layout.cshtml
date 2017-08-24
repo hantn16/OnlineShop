@@ -66,6 +66,10 @@
     <script src="~/Assets/Admin/Boostrap3/vendor/metisMenu/metisMenu.min.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="~/Assets/Admin/Boostrap3/dist/js/sb-admin-2.js"></script>
+    <script>
+        $('#AlertBox').removeClass('hide');
+        $('#AlertBox').delay(1000).slideUp(500);
+    </script>
     @RenderSection("jsFooter", false);
 </body>
 </html>
