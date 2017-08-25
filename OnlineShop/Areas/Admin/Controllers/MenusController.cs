@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyModel.EF;
+using MyModel.DAO;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -17,8 +18,8 @@ namespace OnlineShop.Areas.Admin.Controllers
         // GET: Admin/Menus
         public ActionResult Index()
         {
-            var menus = db.Menus.Include(m => m.MenuType);
-            return View(menus.ToList());
+            var model = new MenuDao().ListMenu();
+            return View(model);
         }
 
         // GET: Admin/Menus/Details/5
@@ -52,9 +53,15 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Menus.Add(menu);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (new MenuDao().Insert(menu)>0)
+                {
+                    SetAlert("Tạo mới menu thành công", AlertType.Success);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("CreateFailed", "Tạo mới menu thất bại");
+                }                
             }
 
             ViewBag.TypeID = new SelectList(db.MenuTypes, "ID", "Name", menu.TypeID);
@@ -86,37 +93,28 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(menu).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (new MenuDao().Update(menu))
+                {
+                    SetAlert("Cập nhật menu thành công", AlertType.Success);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("UpdateFailed", "Cập nhật menu thất bại");
+                }               
             }
             ViewBag.TypeID = new SelectList(db.MenuTypes, "ID", "Name", menu.TypeID);
             return View(menu);
         }
 
-        // GET: Admin/Menus/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Menu menu = db.Menus.Find(id);
-            if (menu == null)
-            {
-                return HttpNotFound();
-            }
-            return View(menu);
-        }
-
         // POST: Admin/Menus/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [HttpDelete]
+        public ActionResult Delete(int id)
         {
-            Menu menu = db.Menus.Find(id);
-            db.Menus.Remove(menu);
-            db.SaveChanges();
+            if (!new MenuDao().Delete(id))
+            {
+                ModelState.AddModelError("DeleteFailed", "Xóa menu thất bại");
+            }
             return RedirectToAction("Index");
         }
 

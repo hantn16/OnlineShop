@@ -23,6 +23,10 @@
             context.Users.AddOrUpdate(x => x.ID, new User() {
                 ID = 1,UserName="admin",PassWord = "adminanhhan".Encrypt2MD5(),Name= "Trịnh Ngọc Hân",Status=true
             });
+            context.MenuTypes.AddOrUpdate(x => x.ID,
+                new MenuType() { ID= 1, Name = "Top Menu"},
+                new MenuType() { ID= 2, Name = "Main Menu"}
+            );
         }
     }
 }

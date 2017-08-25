@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using MyModel.EF;
 using MyModel.DAO;
+using OnlineShop.Common;
+using MyTools;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -18,8 +20,8 @@ namespace OnlineShop.Areas.Admin.Controllers
         // GET: Admin/ProductCategories
         public ActionResult Index()
         {
-            var productCategories = db.ProductCategories.Include(p => p.ParentProductCat);
-            return View(productCategories.ToList());
+            var model = new ProductCategoryDao().ListAll(sort:true);
+            return View(model);
         }
 
         // GET: Admin/ProductCategories/Details/5
@@ -49,13 +51,26 @@ namespace OnlineShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "ID,Name,MetaTitle,ParentID,DisplayOrder,SeoTitle,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,MetaKeywords,MetaDescription,Status,ShowOnHome")] ProductCategory productCategory)
         {
             if (ModelState.IsValid)
             {
-                db.ProductCategories.Add(productCategory);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //Set CreateBy, CreateDate
+                productCategory.CreatedDate = DateTime.Now;
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                productCategory.CreatedBy = session.UserName;
+                //Update MetaTitle theo Name
+                productCategory.MetaTitle = productCategory.Name.ToLower().ConvertToUnSign();
+                if (new ProductCategoryDao().Insert(productCategory)>0)
+                {
+                    SetAlert("Tạo mới danh mục sản phẩm thành công", AlertType.Success);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("CreateFailed", "Tạo mới danh mục sản phẩm thất bại");
+                }               
             }
 
             ViewBag.ParentID = new SelectList(db.ProductCategories, "ID", "Name", productCategory.ParentID);
@@ -83,13 +98,27 @@ namespace OnlineShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Edit([Bind(Include = "ID,Name,MetaTitle,ParentID,DisplayOrder,SeoTitle,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,MetaKeywords,MetaDescription,Status,ShowOnHome")] ProductCategory productCategory)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(productCategory).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //Set ModifiedBy, ModifiedDate
+                productCategory.ModifiedDate = DateTime.Now;
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                productCategory.ModifiedBy = session.UserName;
+                //Update MetaTitle theo Name
+                productCategory.MetaTitle = productCategory.Name.ToLower().ConvertToUnSign();
+                if (new ProductCategoryDao().Update(productCategory))
+                {
+                    SetAlert("Cập nhật danh mục sản phẩm thành công", AlertType.Success);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("UpdateFailed", "Cập nhật danh mục sản phẩm thất bại");
+                }
+                
             }
             ViewBag.ParentID = new SelectList(db.ProductCategories, "ID", "Name", productCategory.ParentID);
             return View(productCategory);

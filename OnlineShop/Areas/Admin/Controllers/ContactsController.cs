@@ -7,17 +7,19 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyModel.EF;
+using MyModel.DAO;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
-    public class ContactsController : Controller
+    public class ContactsController : BaseController
     {
         private OnlineShopDbContext db = new OnlineShopDbContext();
 
         // GET: Admin/Contacts
         public ActionResult Index()
         {
-            return View(db.Contacts.ToList());
+            var model = new ContactDao().ListAll();
+            return View(model);
         }
 
         // GET: Admin/Contacts/Details/5
@@ -46,15 +48,22 @@ namespace OnlineShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "ID,Content,Status")] Contact contact)
         {
             if (ModelState.IsValid)
             {
-                db.Contacts.Add(contact);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (new ContactDao().Insert(contact)>0)
+                {
+                    SetAlert("Thêm mới contact thành công", AlertType.Success);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("CreateFailed", "Thêm mới contact thất bại");
+                }
+                
             }
-
             return View(contact);
         }
 
@@ -78,40 +87,36 @@ namespace OnlineShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Edit([Bind(Include = "ID,Content,Status")] Contact contact)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(contact).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (new ContactDao().Update(contact))
+                {
+                    SetAlert("Cập nhật contact thành công", AlertType.Success);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("UpdateFailed", "Cập nhật contact thất bại");
+                }
+                
             }
             return View(contact);
         }
 
-        // GET: Admin/Contacts/Delete/5
-        public ActionResult Delete(long? id)
+        [HttpDelete]
+        public ActionResult Delete(long id)
         {
-            if (id == null)
+            if (!new ContactDao().Delete(id))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ModelState.AddModelError("DeleteFailed", "Xóa contact thất bại");
             }
-            Contact contact = db.Contacts.Find(id);
-            if (contact == null)
+            else
             {
-                return HttpNotFound();
+                SetAlert("Xóa contact thành công", AlertType.Success);
             }
-            return View(contact);
-        }
-
-        // POST: Admin/Contacts/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
-        {
-            Contact contact = db.Contacts.Find(id);
-            db.Contacts.Remove(contact);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 

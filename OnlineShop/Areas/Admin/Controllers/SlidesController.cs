@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyModel.EF;
+using MyModel.DAO;
+using OnlineShop.Common;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -17,7 +19,8 @@ namespace OnlineShop.Areas.Admin.Controllers
         // GET: Admin/Slides
         public ActionResult Index()
         {
-            return View(db.Slides.ToList());
+            var model = new SlideDao().ListAll();
+            return View(model);
         }
 
         // GET: Admin/Slides/Details/5
@@ -46,15 +49,25 @@ namespace OnlineShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [ValidateInput(false)]
         public ActionResult Create([Bind(Include = "ID,Image,DisplayOrder,Link,Description,CreatedDate,CreatedBy,ModifiedDate,ModifiedBy,Status")] Slide slide)
         {
             if (ModelState.IsValid)
             {
-                db.Slides.Add(slide);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //Cập nhật thời gian và người tạo
+                slide.CreatedDate = DateTime.Now;
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                slide.CreatedBy = session.UserName;
+                if(new SlideDao().Insert(slide) > 0)
+                {
+                    SetAlert("Thêm mới slide thành công", AlertType.Success);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("CreateFailed", "Thêm mới slide thất bại");
+                }                
             }
-
             return View(slide);
         }
 
@@ -82,9 +95,19 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(slide).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //Cập nhật thời gian và người sửa
+                slide.ModifiedDate = DateTime.Now;
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                slide.ModifiedBy = session.UserName;
+                if(new SlideDao().Update(slide))
+                {
+                    SetAlert("Cập nhật slide thành công", AlertType.Success);
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    ModelState.AddModelError("UpdateFailed", "Cập nhật slide thất bại");
+                }                
             }
             return View(slide);
         }
@@ -105,13 +128,10 @@ namespace OnlineShop.Areas.Admin.Controllers
         }
 
         // POST: Admin/Slides/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        [HttpDelete]
+        public ActionResult Delete(long id)
         {
-            Slide slide = db.Slides.Find(id);
-            db.Slides.Remove(slide);
-            db.SaveChanges();
+            if(new SlideDao().Delete(id)) { SetAlert("Xóa slide thành công", AlertType.Success); } else { ModelState.AddModelError("DeleteFailed", "Xóa slide thất bại"); }
             return RedirectToAction("Index");
         }
 

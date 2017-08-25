@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MyModel.EF;
+using MyModel.DAO;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -17,7 +18,8 @@ namespace OnlineShop.Areas.Admin.Controllers
         // GET: Admin/MenuTypes
         public ActionResult Index()
         {
-            return View(db.MenuTypes.ToList());
+            var model = new MenuTypeDao().ListAll();
+            return View(model);
         }
 
         // GET: Admin/MenuTypes/Details/5
@@ -50,8 +52,14 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.MenuTypes.Add(menuType);
-                db.SaveChanges();
+                if (new MenuTypeDao().Insert(menuType)>0)
+                {
+                    SetAlert("Thêm mới kiểu menu thành công", AlertType.Success);
+                }
+                else
+                {
+                    ModelState.AddModelError("CreateFailed", "Thêm mới kiểu menu thất bại");
+                }
                 return RedirectToAction("Index");
             }
 
@@ -82,36 +90,22 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(menuType).State = EntityState.Modified;
-                db.SaveChanges();
+                if (!new MenuTypeDao().Update(menuType))
+                {
+                    ModelState.AddModelError("UpdateFailed", "Cập nhật thông tin kiểu menu thất bại");
+                }
                 return RedirectToAction("Index");
             }
             return View(menuType);
         }
 
-        // GET: Admin/MenuTypes/Delete/5
-        public ActionResult Delete(int? id)
+        [HttpDelete]
+        public ActionResult Delete(int id)
         {
-            if (id == null)
+            if (!new MenuTypeDao().Delete(id))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                ModelState.AddModelError("DeleteFailed", "Xóa kiểu menu thất bại");
             }
-            MenuType menuType = db.MenuTypes.Find(id);
-            if (menuType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(menuType);
-        }
-
-        // POST: Admin/MenuTypes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            MenuType menuType = db.MenuTypes.Find(id);
-            db.MenuTypes.Remove(menuType);
-            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
