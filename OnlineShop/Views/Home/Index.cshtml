@@ -1,170 +1,131 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "/Views/Shared/_Layout.cshtml";
     var slides = (List<MyModel.EF.Slide>)ViewBag.Slides;
+    var listNewProducts = (List<MyModel.EF.Product>)ViewBag.ListNewProducts;
+    var listTopHotProducts = (List<MyModel.EF.Product>)ViewBag.ListTopHotProducts;
 }
 @section slide {
-    <div class="header_slide">
-    <div class="header_bottom_left">
+    <div class="col-sm-3 no-padding">
         @{ Html.RenderAction("ProductCategory", "Product");}
     </div>
-    <div class="header_bottom_right">
-        <div class="slider">
-            <div id="slider">
-                <div id="mover">
-                    @foreach (var item in slides)
+    <div class="col-sm-9" style="padding-right:0px">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                @for (int i = 0; i < slides.Count; i++)
                     {
-                        <div id="slide-1" class="slide">
-                            <div class="slider-img">
-                                <a href="@item.Link"><img src="@item.Image" alt="learn more" /></a>
-                            </div>
-                            <div class="slider-text">
-                                <h1>Clearance<br><span>SALE</span></h1>
-                                <h2>UPTo 20% OFF</h2>
-                                <div class="features_list">
-                                    <h4>Get to Know More About Our Memorable Services Lorem Ipsum is simply dummy text</h4>
-                                </div>
-                                <a href="preview.html" class="button">Shop Now</a>
-                            </div>
-                            <div class="clear"></div>
-                        </div>
+                        if (i == 0)
+                        {
+                    <li data-target="#myCarousel" data-slide-to="@i" class="active"></li>
+                        }
+                        else
+                        {
+                    <li data-target="#myCarousel" data-slide-to="@i"></li>
+                        }
                     }
-                </div>
-            </div>
-            <div class="clear"></div>
-        </div>
-    </div>
-    <div class="clear"></div>
-</div>
-    }
-<div class="content">
-    <div class="content_top">
-        <div class="heading">
-            <h3>New Products</h3>
-        </div>
-        <div class="see">
-            <p><a href="#">See all Products</a></p>
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="section group">
-        <div class="grid_1_of_4 images_1_of_4">
-            <a href="preview.html"><img src="/Assets/Client/images/feature-pic1.jpg" alt="" /></a>
-            <h2>Lorem Ipsum is simply </h2>
-            <div class="price-details">
-                <div class="price-number">
-                    <p><span class="rupees">$620.87</span></p>
-                </div>
-                <div class="add-cart">
-                    <h4><a href="preview.html">Add to Cart</a></h4>
-                </div>
-                <div class="clear"></div>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+                @for (int i = 0; i < slides.Count; i++)
+                    {
+                        if (i == 0)
+                        {
+                    <div class="item active">
+                        <img src="@slides[i].Image" alt="Slide-@slides[i].ID">
+                    </div>
+                        }
+                        else
+                        {
+                    <div class="item">
+                        <img src="@slides[i].Image" alt="Slide-@slides[i].ID">
+                    </div>
+                        }
+                    }
             </div>
 
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        <div class="grid_1_of_4 images_1_of_4">
-            <a href="preview.html"><img src="/Assets/Client/images/feature-pic2.jpg" alt="" /></a>
-            <h2>Lorem Ipsum is simply </h2>
-            <div class="price-details">
-                <div class="price-number">
-                    <p><span class="rupees">$899.75</span></p>
-                </div>
-                <div class="add-cart">
-                    <h4><a href="preview.html">Add to Cart</a></h4>
-                </div>
-                <div class="clear"></div>
+    </div>
+}
+    <!--List new products-->
+    <div class="panel panel-default" style="margin-top:15px">
+        <div class="panel-heading">
+            <div class="col-xs-6">
+                <h4 class="panel-title">SẢN PHẨM MỚI</h4>
             </div>
-
-        </div>
-        <div class="grid_1_of_4 images_1_of_4">
-            <a href="preview.html"><img src="/Assets/Client/images/feature-pic3.jpg" alt="" /></a>
-            <h2>Lorem Ipsum is simply </h2>
-            <div class="price-details">
-                <div class="price-number">
-                    <p><span class="rupees">$599.00</span></p>
-                </div>
-                <div class="add-cart">
-                    <h4><a href="preview.html">Add to Cart</a></h4>
-                </div>
-                <div class="clear"></div>
+            <div class="col-xs-6">
+                <a class="pull-right" href="/san-pham">Xem tất cả <span class="caret"></span></a>
             </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="grid_1_of_4 images_1_of_4">
-            <a href="preview.html"><img src="/Assets/Client/images/feature-pic4.jpg" alt="" /></a>
-            <h2>Lorem Ipsum is simply </h2>
-            <div class="price-details">
-                <div class="price-number">
-                    <p><span class="rupees">$679.87</span></p>
-                </div>
-                <div class="add-cart">
-                    <h4><a href="preview.html">Add to Cart</a></h4>
-                </div>
-                <div class="clear"></div>
+        <div class="panel-body">
+            <div class="row">
+                @foreach (var item in listNewProducts)
+                    {
+                    <div class="col-xs-6 col-sm-3">
+                        <div class="thumbnail product-thumbnail">
+                            <div>
+                                <a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID"><img class="img-responsive" src="@item.Image" alt="@item.Name" /></a>
+                            </div>
+                            <div class="no-padding product-name">
+                                <p style="font-size:1.2em" class="text-center">@item.Name </p>
+                            </div>                           
+                            <div class="product-price">
+                                <div class="price col-xs-7 no-padding">
+                                    <p class="text-center"><span>@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "liên hệ")</span></p>
+                                </div>
+                                <div class="cart col-xs-5 no-padding">
+                                    <h5 class="text-center"><a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID">Thêm vào giỏ</a></h5>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                    </div>
+                    }
             </div>
         </div>
     </div>
-    <div class="content_bottom">
-        <div class="heading">
-            <h3>Feature Products</h3>
-        </div>
-        <div class="see">
-            <p><a href="#">See all Products</a></p>
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="section group">
-        <div class="grid_1_of_4 images_1_of_4">
-            <a href="preview.html"><img src="/Assets/Client/images/new-pic1.jpg" alt="" /></a>
-            <h2>Lorem Ipsum is simply </h2>
-            <div class="price-details">
-                <div class="price-number">
-                    <p><span class="rupees">$849.99</span></p>
-                </div>
-                <div class="add-cart">
-                    <h4><a href="preview.html">Add to Cart</a></h4>
-                </div>
-                <div class="clear"></div>
+    <div class="panel panel-default">
+        <!--List top hot products-->
+        <div class="panel-heading">
+            <div class="col-xs-6">
+                <h4 class="panel-title">SẢN PHẨM HOT</h4>
             </div>
-        </div>
-        <div class="grid_1_of_4 images_1_of_4">
-            <a href="preview.html"><img src="/Assets/Client/images/new-pic2.jpg" alt="" /></a>
-            <h2>Lorem Ipsum is simply </h2>
-            <div class="price-details">
-                <div class="price-number">
-                    <p><span class="rupees">$599.99</span></p>
-                </div>
-                <div class="add-cart">
-                    <h4><a href="preview.html">Add to Cart</a></h4>
-                </div>
-                <div class="clear"></div>
+            <div class="col-xs-6">
+                <a class="pull-right" href="/san-pham">Xem tất cả <span class="caret"></span></a>
             </div>
+            <div class="clearfix"></div>
         </div>
-        <div class="grid_1_of_4 images_1_of_4">
-            <a href="preview.html"><img src="/Assets/Client/images/new-pic4.jpg" alt="" /></a>
-            <h2>Lorem Ipsum is simply </h2>
-            <div class="price-details">
-                <div class="price-number">
-                    <p><span class="rupees">$799.99</span></p>
-                </div>
-                <div class="add-cart">
-                    <h4><a href="preview.html">Add to Cart</a></h4>
-                </div>
-                <div class="clear"></div>
-            </div>
-        </div>
-        <div class="grid_1_of_4 images_1_of_4">
-            <a href="preview.html"><img src="/Assets/Client/images/new-pic3.jpg" alt="" /></a>
-            <h2>Lorem Ipsum is simply </h2>
-            <div class="price-details">
-                <div class="price-number">
-                    <p><span class="rupees">$899.99</span></p>
-                </div>
-                <div class="add-cart">
-                    <h4><a href="preview.html">Add to Cart</a></h4>
-                </div>
-                <div class="clear"></div>
+        <div class="panel-body">
+            <div class="row">
+                @foreach (var item in listTopHotProducts)
+                {
+                    <div class="col-sm-6 col-md-3">
+                        <div class="product-thumbnail">
+                            <a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID"><img class="img-responsive" src="@item.Image" alt="@item.Name" /></a>
+                            <h2>@item.Name</h2>
+                            <div class="price-details">
+                                <div class="price-number">
+                                    <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "liên hê")</span></p>
+                                </div>
+                                <div class="add-cart">
+                                    <h4><a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID">Thêm vào giỏ</a></h4>
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
     </div>
-</div>

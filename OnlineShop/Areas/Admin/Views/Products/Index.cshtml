@@ -5,14 +5,12 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-@section header{Danh Sách Bài Viết}
-@section cssHeader{
-    @*<style>
-        thead > tr > th {text-align:center}
-        tbody > tr > td {vertical-align:middle}
-    </style>*@
+@section header{Danh Sách Sản phẩm}
+@section jsFooter{    
+<script src="~/Assets/Admin/Mine/js/Controller/ProductsController.js"></script>
     }
 <div class="row">
+    <script src="~/Assets/Admin/Mine/js/Controller/ProductsController.js"></script>
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -83,7 +81,7 @@
                                         
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Price)
+                                        @(item.Price.HasValue? item.Price.Value.ToString("N0") : "Liên hệ")
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.PromotionPrice)
@@ -107,6 +105,7 @@
                                         @Html.DisplayFor(modelItem => item.ViewCount)
                                     </td>
                                     <td>
+                                        <a href="#" class="btn-images" data-id="@item.ID"><i title="Quản lý ảnh" class="fa fa-camera"></i></a>
                                         <a href="/Admin/Products/Edit/@item.ID"><i title="Sửa" class="fa fa-edit"></i></a>
                                         <a href="/Admin/Products/Details/@item.ID"><i title="Chi tiết" class="fa fa-search-plus"></i></a>
                                         @Ajax.ActionLink(" ", "Delete", new { @id = item.ID }, new AjaxOptions
@@ -125,4 +124,29 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div id="ImageManager" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="display:table">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Quản lý ảnh</h4>
+            </div>
+            <div class="modal-body">
+                <div id="ImageList">
+                </div>
+                <div style="clear:both"></div>
+                
+                <input type="hidden" id="hidProductID" value="0" />
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnChooseImage" class="btn btn-primary" value="Chọn ảnh" />
+                <button type="button" class="btn btn-success" id="btnSaveImage">Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>

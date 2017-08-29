@@ -1,0 +1,76 @@
+﻿.carousel {
+    max-height: 500px;
+    overflow: hidden;
+}
+    .carousel-inner .item img {
+        width: auto;
+        max-height: 500px;
+        margin:auto;
+    }
+.no-padding{
+    padding:0px;
+}
+p.navbar-brand{
+    font-size:14px;
+    padding:8px 8px;
+    margin:auto;
+    vertical-align:central;
+}
+@media (max-width: 767px){
+
+}
+#myNav .header {
+    padding: 10px 4px;
+    text-align: center;
+    background-color: firebrick;
+    color: white !important;
+}
+#myNav ul li a {
+    color: firebrick;
+}
+
+#myNav ul li a:hover {
+        color: white;
+        background-color: firebrick;
+}
+.panel{
+    border-radius:0px !important;
+}
+div h4.panel-title {
+        color:red !important;
+        padding-left:0px;
+    }
+div.product-thumbnail .thumbnail{
+    max-height:256px;
+    width:auto;
+    background-color:yellow;
+}
+/*div.product-thumbnail .thumbnail a img{
+    max-height:250px;
+    width:100%;
+    display:inline-block;
+    vertical-align:middle;
+}*/
+div.product-thumbnail{
+    margin-bottom:0px !important;
+}
+div.product-price div h5 a{
+    text-decoration:none;
+}
+div.price p {
+    margin: 11px auto;
+    font-size:1.2em;
+}
+div.product-price{
+    border-top:1px solid red;
+}
+div.cart{
+    background-color:red;
+}
+div.cart a{
+    color:white;
+}
+div.product-name p{
+    color:black;
+    font-size:1.2em;
+}

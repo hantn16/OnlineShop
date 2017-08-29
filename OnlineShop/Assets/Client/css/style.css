@@ -262,6 +262,7 @@ body {
     background:url(../images/drop_arrow.png) no-repeat 0;
     border-bottom: 1px solid #EEE;
     text-transform:uppercase;	
+    
 }
 .categories li:last-child a{
 	border:none;

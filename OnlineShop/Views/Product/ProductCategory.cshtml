@@ -1,12 +1,66 @@
-﻿@model List<MyModel.EF.ProductCategory>
+﻿@using MyModel.EF;
+@model List<ProductCategory>
 
-<div class="categories">
-    <ul>
-        <h3>Danh mục sản phẩm</h3>
-        @foreach (var item in Model)
-        {
-            <li><a href="/san-pham/@item.MetaTitle">@item.Name</a></li>
-        }
-        
-    </ul>
-</div>
+<nav class="navbar navbar-default" role="navigation"> @*sidebar*@
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#myNav">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div> 
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class=" navbar-collapse no-padding" id="myNav"> @*sidebar-nav*@
+        <div class="header">DANH MỤC SẢN PHẨM</div>
+        <ul class="nav" id="side-menu">
+            @foreach (var item in Model.Where(x => x.ParentID == null))
+            {
+                var child = Model.Where(x => x.ParentID == item.ID);
+
+                if (child.Count() > 0)
+                {
+                    string spanClass = "<span class=\"fa arrow\" style=\"float:right\"></span>";
+                    <li class="dropdown">
+                        <a class="nowrap" href="#"> @item.Name @Html.Raw(spanClass)</a>
+                        <ul class="nav nav-second-level">
+                            @foreach (var childItem in child)
+                            {
+                                var grandChild = Model.Where(x => x.ParentID == childItem.ID);
+                                if (grandChild.Count() > 0)
+                                {
+                                    <li class="dropdown">
+                                        <a class="nowrap" href="/danh-muc-san-pham/@childItem.MetaTitle-@childItem.ID">@childItem.Name @Html.Raw(spanClass)</a>
+                                        <ul class="nav nav-third-level">
+                                            @foreach (var grandChildItem in grandChild)
+                                            {
+                                                <li class="dropdown">
+                                                    <a class="nowrap" href="/danh-muc-san-pham/@grandChildItem.MetaTitle-@grandChildItem.ID">@grandChildItem.Name</a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>
+                                        <a href="/danh-muc-san-pham/@childItem.MetaTitle-@childItem.ID">@childItem.Name</a>
+                                    </li>
+                                }
+                            }
+
+                        </ul>
+                    </li>
+                }
+                else
+                {
+                    <li class="dropdown">
+                        <a href="/danh-muc-san-pham/@item.MetaTitle-@item.ID"> @item.Name</a>
+                    </li>
+                }
+            }
+        </ul>
+    </div>
+    <!-- /.sidebar-collapse -->
+</nav>

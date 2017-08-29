@@ -94,5 +94,9 @@ namespace MyModel.DAO
                 return false;
             }
         }
+        public ProductCategory GetById(long id)
+        {
+            return db.ProductCategories.Find(id);
+        }
     }
 }

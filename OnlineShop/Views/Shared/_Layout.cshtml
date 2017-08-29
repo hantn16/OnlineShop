@@ -10,89 +10,76 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <title>Free Home Shoppe Website Template | Home :: w3layouts</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="/Assets/Client/css/style.css" rel="stylesheet" type="text/css" media="all" />
-    <link href="/Assets/Client/css/slider.css" rel="stylesheet" type="text/css" media="all" />
-    <script type="text/javascript" src="/Assets/Client/js/jquery-1.7.2.min.js"></script>
-    <script type="text/javascript" src="/Assets/Client/js/move-top.js"></script>
-    <script type="text/javascript" src="/Assets/Client/js/easing.js"></script>
-    <script type="text/javascript" src="/Assets/Client/js/startstop-slider.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="/Assets/Admin/Boostrap3/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- DataTable Bootstrap-->
+    <link href="/Assets/Admin/Boostrap3/vendor/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <!-- MetisMenu CSS -->
+    <link href="/Assets/Admin/Boostrap3/vendor/metisMenu/metisMenu.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="/Assets/Client/css/sb-admin-2.css" rel="stylesheet" />
+    <!-- Custom Fonts -->
+    <link href="/Assets/Admin/Boostrap3/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!--My CSS-->
+    <link href="~/Assets/Client/css/myIndex.css" rel="stylesheet" />
+    @RenderSection("cssHeader", false);
 </head>
 <body>
-    <div class="wrap">
-        <div class="header">
-            <div class="headertop_desc">
-                @{ Html.RenderAction("TopMenu", "Home");}
-            </div>
-            <div class="header_top">
-                <div class="logo">
-                    <a href="index.html"><img src="/Assets/Client/images/logo.png" alt="" /></a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 container">
+                <div class="row no-padding">
+                    @{ Html.RenderAction("TopMenu", "Home");}
                 </div>
-                <div class="cart">
-                    <p>
-                        Welcome to our Online Store! <span>Cart:</span><div id="dd" class="wrapper-dropdown-2">
-                            0 item(s) - $0.00
-                            <ul class="dropdown">
-                                <li>you have no items in your Shopping cart</li>
-                            </ul>
+                <div class="row">
+                        <div class="col-sm-4 col-md-4 col-lg-4 no-padding">
+                            <a href="index.html"><img style="height:auto" src="/Assets/Client/images/logo.png" alt="" /></a>
                         </div>
-                    </p>
+                        <div class="col-sm-8 col-md-8 col-lg-8" style="height:71px;">
+                                <p id="test" class="pull-right no-margin no-padding nowrap">
+                                    Welcome to our Online Store!
+                                    <span class="text-danger lead">Cart: </span>
+                                    0 item(s) - $0.00
+                                    <div class="pull-right">
+                                        <a class="dropdown-toggle" data-toggle="collapse" data-target="#idtest"><i class="fa fa-caret-down"></i></a>
+                                        <ul class="pull-right collapse" id="idtest">
+                                            <li>you have no items in your Shopping cart</li>
+                                        </ul>
+                                    </div>
+                                </p>
+
+                        </div>
                 </div>
-                <script type="text/javascript">
-			function DropDown(el) {
-				this.dd = el;
-				this.initEvents();
-			}
-			DropDown.prototype = {
-				initEvents : function() {
-					var obj = this;
-
-					obj.dd.on('click', function(event){
-						$(this).toggleClass('active');
-						event.stopPropagation();
-					});
-				}
-			}
-
-			$(function() {
-
-				var dd = new DropDown( $('#dd') );
-
-				$(document).click(function() {
-					// all dropdowns
-					$('.wrapper-dropdown-2').removeClass('active');
-				});
-
-			});
-
-                </script>
-                <div class="clear"></div>
-            </div>
-            <div class="header_bottom">
-                @{Html.RenderAction("MainMenu", "Home");}
-                <div class="search_box">
-                    <form>
-                        <input type="text" value="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit" value="">
-                    </form>
+                <div class="row no-padding list-inline">
+                    <div>
+                        @{Html.RenderAction("MainMenu", "Home");}
+                    </div>
+                    <div class="clear"></div>
                 </div>
-                <div class="clear"></div>
+                <div class="row">
+                    @RenderSection("slide", false)
+                </div>
+                    <div class="row">
+                        @RenderBody();
+                    </div>
             </div>
-            @RenderSection("slide",false)
         </div>
-        <div class="main">
-            @RenderBody();
-
+        <div class="row">
+            @{ Html.RenderAction("Footer", "Home");}
         </div>
+        <a href="#" id="toTop"><span id="toTopHover"> </span></a>
     </div>
-    <div class="footer">
-        @{ Html.RenderAction("Footer", "Home");}
-    </div>
-    <script type="text/javascript">
-		$(document).ready(function() {
-			$().UItoTop({ easingType: 'easeOutQuart' });
-
-		});
-    </script>
-    <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="/Assets/Admin/Boostrap3/vendor/jquery/jquery.min.js"></script>
+    <script src="/Assets/Admin/Boostrap3/js/jquery.unobtrusive-ajax.min.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Assets/Admin/Boostrap3/vendor/bootstrap/js/bootstrap.js"></script>
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="/Assets/Admin/Boostrap3/vendor/metisMenu/metisMenu.min.js"></script>
+    <!-- Custom Theme JavaScript -->
+    <script src="/Assets/Admin/Boostrap3/dist/js/sb-admin-2.js"></script>
+    @RenderSection("jsFooter", false);
 </body>
 </html>
 

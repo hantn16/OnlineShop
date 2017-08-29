@@ -12,6 +12,9 @@ namespace OnlineShop.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            var dao = new ProductDao();
+            ViewBag.ListNewProducts = dao.GetFeaturedList(ProductDao.ProductFeature.New, 4);
+            ViewBag.ListTopHotProducts = dao.GetFeaturedList(ProductDao.ProductFeature.TopHot, 4);
             ViewBag.Slides = new SlideDao().ListAll(true, true);
             return View();
         }

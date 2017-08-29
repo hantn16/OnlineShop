@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace MyTools
 {
@@ -57,6 +58,29 @@ namespace MyTools
 
             return regex.Replace(strFormD, String.Empty).Replace('\u0111', 'd').Replace('\u0110', 'D');
         }
+        /// <summary>
+        /// Hàm lấy ra danh sách giá trị của các phần tử con trong một chuỗi xml
+        /// </summary>
+        /// <param name="xmlString"> chuỗi xml truyền vào</param>
+        /// <returns></returns>
+        public static List<string> GetListValueFromXmlString(this string xmlString)
+        {
+            try
+            {
+                XElement xElement = XElement.Parse(xmlString);
+                List<string> list = new List<string>();
+                foreach (var item in xElement.Elements())
+                {
+                    list.Add(item.Value);
+                }
+                return list;
+            }
+            catch (Exception)
+            {
 
+                return null ;
+            }
+
+        }
     }
 }
