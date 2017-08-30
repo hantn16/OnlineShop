@@ -18,11 +18,11 @@
                     {
                         if (i == 0)
                         {
-                    <li data-target="#myCarousel" data-slide-to="@i" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="@i" class="active"></li>
                         }
                         else
                         {
-                    <li data-target="#myCarousel" data-slide-to="@i"></li>
+                <li data-target="#myCarousel" data-slide-to="@i"></li>
                         }
                     }
             </ol>
@@ -32,15 +32,15 @@
                     {
                         if (i == 0)
                         {
-                    <div class="item active">
-                        <img src="@slides[i].Image" alt="Slide-@slides[i].ID">
-                    </div>
+                <div class="item active">
+                    <img src="@slides[i].Image" alt="Slide-@slides[i].ID">
+                </div>
                         }
                         else
                         {
-                    <div class="item">
-                        <img src="@slides[i].Image" alt="Slide-@slides[i].ID">
-                    </div>
+                <div class="item">
+                    <img src="@slides[i].Image" alt="Slide-@slides[i].ID">
+                </div>
                         }
                     }
             </div>
@@ -57,75 +57,81 @@
         </div>
     </div>
 }
-    <!--List new products-->
-    <div class="panel panel-default" style="margin-top:15px">
-        <div class="panel-heading">
-            <div class="col-xs-6">
-                <h4 class="panel-title">SẢN PHẨM MỚI</h4>
-            </div>
-            <div class="col-xs-6">
-                <a class="pull-right" href="/san-pham">Xem tất cả <span class="caret"></span></a>
-            </div>
-            <div class="clearfix"></div>
+<!--List new products-->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="col-xs-6">
+            <h4 class="panel-title">SẢN PHẨM MỚI</h4>
         </div>
-        <div class="panel-body">
-            <div class="row">
-                @foreach (var item in listNewProducts)
-                    {
-                    <div class="col-xs-6 col-sm-3">
-                        <div class="thumbnail product-thumbnail">
-                            <div>
-                                <a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID"><img class="img-responsive" src="@item.Image" alt="@item.Name" /></a>
-                            </div>
-                            <div class="no-padding product-name">
-                                <p style="font-size:1.2em" class="text-center">@item.Name </p>
-                            </div>                           
-                            <div class="product-price">
-                                <div class="price col-xs-7 no-padding">
-                                    <p class="text-center"><span>@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "liên hệ")</span></p>
-                                </div>
-                                <div class="cart col-xs-5 no-padding">
-                                    <h5 class="text-center"><a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID">Thêm vào giỏ</a></h5>
-                                </div>
-                                <div class="clearfix"></div>
-                            </div>
-                        </div>
-                    </div>
-                    }
-            </div>
+        <div class="col-xs-6">
+            <a class="pull-right" href="/san-pham">Xem tất cả <span class="caret"></span></a>
         </div>
+        <div class="clearfix"></div>
     </div>
-    <div class="panel panel-default">
-        <!--List top hot products-->
-        <div class="panel-heading">
-            <div class="col-xs-6">
-                <h4 class="panel-title">SẢN PHẨM HOT</h4>
-            </div>
-            <div class="col-xs-6">
-                <a class="pull-right" href="/san-pham">Xem tất cả <span class="caret"></span></a>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-        <div class="panel-body">
-            <div class="row">
-                @foreach (var item in listTopHotProducts)
-                {
-                    <div class="col-sm-6 col-md-3">
-                        <div class="product-thumbnail">
+    <div class="panel-body">
+        <div class="row">
+            @foreach (var item in listNewProducts)
+            {
+                <div class="col-xs-6 col-sm-3">
+                    <div class="thumbnail product-thumbnail">
+                        <div>
                             <a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID"><img class="img-responsive" src="@item.Image" alt="@item.Name" /></a>
-                            <h2>@item.Name</h2>
-                            <div class="price-details">
-                                <div class="price-number">
-                                    <p><span class="rupees">@(item.Price.HasValue ? item.Price.Value.ToString("N0") : "liên hê")</span></p>
-                                </div>
-                                <div class="add-cart">
-                                    <h4><a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID">Thêm vào giỏ</a></h4>
-                                </div>
-                                <div class="clear"></div>
+                        </div>
+                        <div class="product-name">
+                            <p class="text-center">@item.Name </p>
+                        </div>
+
+                        <div class="product-price">
+                            <div class="price col-xs-7 no-padding">
+                                <p class="text-center"><strong><span>@(item.Price.HasValue ? string.Format("{0:0,0 VNĐ}", item.Price.Value) : "liên hệ")</span></strong></p>
                             </div>
+                            <div class="cart col-xs-5 no-padding">
+                                <h5 class="text-center"><a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID">Thêm vào giỏ</a></h5>
+                            </div>
+                            <div class="clear"></div>
                         </div>
                     </div>
-                }
-            </div>
+                </div>
+            }
         </div>
     </div>
+</div>
+<div class="panel panel-default">
+    <!--List top hot products-->
+    <div class="panel-heading">
+        <div class="col-xs-6">
+            <h4 class="panel-title">SẢN PHẨM HOT</h4>
+        </div>
+        <div class="col-xs-6">
+            <a class="pull-right" href="/san-pham">Xem tất cả <span class="caret"></span></a>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            @foreach (var item in listTopHotProducts)
+            {
+                <div class="col-xs-6 col-sm-3">
+                    <div class="thumbnail product-thumbnail">
+                        <div>
+                            <a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID"><img class="img-responsive" src="@item.Image" alt="@item.Name" /></a>
+                        </div>
+                        <div class="product-name">
+                            <p class="text-center">@item.Name </p>
+                        </div>
+
+                        <div class="product-price">
+                            <div class="price col-xs-7 no-padding">
+                                <p class="text-center"><strong><span>@(item.Price.HasValue ? string.Format("{0:0,0 VNĐ}", item.Price.Value) : "liên hệ")</span></strong></p>
+                            </div>
+                            <div class="cart col-xs-5 no-padding">
+                                <h5 class="text-center"><a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID">Thêm vào giỏ</a></h5>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>

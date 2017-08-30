@@ -8,9 +8,9 @@
         margin:auto;
     }
 .no-padding{
-    padding:0px;
+    padding:0;
 }
-p.navbar-brand{
+.navbar-brand{
     font-size:14px;
     padding:8px 8px;
     margin:auto;
@@ -23,7 +23,7 @@ p.navbar-brand{
     padding: 10px 4px;
     text-align: center;
     background-color: firebrick;
-    color: white !important;
+    color: white;
 }
 #myNav ul li a {
     color: firebrick;
@@ -34,13 +34,13 @@ p.navbar-brand{
         background-color: firebrick;
 }
 .panel{
-    border-radius:0px !important;
+    border-radius:0;
 }
-div h4.panel-title {
-        color:red !important;
-        padding-left:0px;
+.panel-title {
+        color:red;
+        padding-left:0;
     }
-div.product-thumbnail .thumbnail{
+.product-thumbnail .thumbnail{
     max-height:256px;
     width:auto;
     background-color:yellow;
@@ -51,26 +51,26 @@ div.product-thumbnail .thumbnail{
     display:inline-block;
     vertical-align:middle;
 }*/
-div.product-thumbnail{
-    margin-bottom:0px !important;
-}
-div.product-price div h5 a{
+.product-price div h5 a{
     text-decoration:none;
 }
-div.price p {
+.price p {
     margin: 11px auto;
     font-size:1.2em;
 }
-div.product-price{
+.product-price{
     border-top:1px solid red;
 }
-div.cart{
+.cart{
     background-color:red;
 }
-div.cart a{
+.cart a{
     color:white;
 }
-div.product-name p{
-    color:black;
-    font-size:1.2em;
+.product-name p {
+    color: black;
+    font-size: 1.2em;
+}
+.navbar-nav li:hover {
+    background-color:firebrick;
 }

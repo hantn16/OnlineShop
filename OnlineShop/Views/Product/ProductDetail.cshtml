@@ -6,10 +6,10 @@
     List<MyModel.EF.Product> relatedProducts = (List<MyModel.EF.Product>)ViewBag.RelatedProducts;
 }
 @section cssHeader{
-    <link href="~/Assets/Client/css/easy-responsive-tabs.css" rel="stylesheet" />
+    <link href="/Assets/Client/css/easy-responsive-tabs.css" rel="stylesheet" />
 }
 @section jsFooter{
-    <script src="~/Assets/Client/js/easyResponsiveTabs.js"></script>
+    <script src="/Assets/Client/js/easyResponsiveTabs.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#horizontalTab').easyResponsiveTabs({
@@ -21,58 +21,117 @@
     </script>
 }
 <div class="container">
-    <div class="main">
-        <div class="content">
-            <div class="content_top">
-                <div class="breadcrumb">
-                    <p><a href="/">Trang chủ</a> >> <a href="/danh-muc-san-pham/@Model.ProductCategory.MetaTitle-@Model.ProductCategory.ID">@Model.ProductCategory.Name</a></p>
-                </div>
-                <div class="clear"></div>
+    <div class="row">
+        <!--breadcumb-->
+        <div>
+            <div class="breadcrumb">
+                <p><a href="/">Trang chủ</a> >> <a href="/danh-muc-san-pham/@Model.ProductCategory.MetaTitle-@Model.ProductCategory.ID">@Model.ProductCategory.Name</a></p>
             </div>
-            <div class="section group">
-                <div class="cont-desc span_1_of_2">
-                    <div class="product-details">
-                        <div class="grid images_3_of_2">
-                            <div id="container">
-                                <div id="products_example">
-                                    <div id="products">
-                                        <div class="slides_container">
-                                            @{
-                                                if (listImage != null)
-                                                {
-                                                    foreach (var item in listImage)
-                                                    {
-                                            <a href="#" target="_blank"><img src="@item" alt=" " /></a>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                            <a href="#" target="_blank"><img src="@Model.Image" alt=" " /></a>
-                                                }
+        </div> <!--//breadcumb-->
+        <div class="row">
+            <div class="col-sm-3 col-sm-push-9">
+                @{ Html.RenderAction("ProductCategory", "Product");}
+                <div>
+                    <h2>Community POll</h2>
+                    <p>What is the main reason for you to purchase products online?</p>
+                    <div>
+                        <form>
+                            <ul>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="1">
+                                    <span class="label"><label>More convenient shipping and delivery </label></span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="2">
+                                    <span class="label"><label for="vote_2">Lower price</label></span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="3">
+                                    <span class="label"><label for="vote_3">Bigger choice</label></span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="5">
+                                    <span class="label"><label for="vote_5">Payments security </label></span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="6">
+                                    <span class="label"><label for="vote_6">30-day Money Back Guarantee </label></span>
+                                </li>
+                                <li>
+                                    <input type="radio" name="vote" class="radio" value="7">
+                                    <span class="label"><label for="vote_7">Other.</label></span>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-9 col-sm-pull-3">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                @if (listImage == null)
+                                {
+                                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < listImage.Count; i++)
+                                    {
+                                        if (i == 0)
+                                        {
+                                            <li data-target="#myCarousel" data-slide-to="@i" class="active"></li>
+                                        }
+                                        else
+                                        {
+                                            <li data-target="#myCarousel" data-slide-to="@i"></li>
+                                        }
+                                    }
+                                }
 
-                                            }
-                                        </div>
-                                        <ul class="pagination">
-                                            @{
-                                                if (listImage != null)
-                                                {
-                                                    foreach (var item in listImage)
-                                                    {
-                                            <li><a href="#"><img src="@item" alt=" " /></a></li>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                            <li><a href="#"><img src="@Model.Image" alt=" " /></a></li>
-                                                }
-
-                                            }
-                                        </ul>
+                            </ol>
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                @if (listImage == null)
+                                {
+                                    <div class="item active">
+                                        <img src="@Model.Image" alt="@Model.Name">
                                     </div>
-                                </div>
+                                }
+                                else
+                                {
+                                    for (int i = 0; i < listImage.Count; i++)
+                                    {
+                                        if (i == 0)
+                                        {
+                                            <div class="item active">
+                                                <img src="@listImage[i]" alt="Slide-@i">
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <div class="item">
+                                                <img src="@listImage[i]" alt="Slide-@i">
+                                            </div>
+                                        }
+                                    }
+                                }
                             </div>
+                            <!-- Left and right controls -->
+                            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
                         </div>
-                        <div class="desc span_3_of_2">
+                    </div>
+                    <div class="col-sm-4">
+                        <div>
                             <h2>@Model.Name</h2>
                             <p>@Model.Description</p>
                             <div class="price">
@@ -80,7 +139,7 @@
                             </div>
                             <div class="available">
                                 <p>Available Options :</p>
-                                <ul>
+                                <ul class="list-inline">
                                     <li>
                                         Color:
                                         <select>
@@ -110,159 +169,109 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="share-desc">
-                                <div class="share">
-                                    <p>Chia sẻ :</p>
-                                    <ul>
-                                        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                    </ul>
+                            <div class="row">
+                                <div style="display:table">
+                                    <div class="col-xs-6" style="background-color:aqua">
+                                        <p>Chia sẻ :</p>
+                                        <ul class="list-inline">
+                                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-xs-6" style="background-color:yellow">
+                                        <a href="#" style="display:block">Thêm vào giỏ</a>
+                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
-                                <div class="button"><span><a href="#">Thêm vào giỏ hàng</a></span></div>
-                                <div class="clear"></div>
                             </div>
-                            <div class="wish-list">
-                                <ul>
+                            <div class="row">
+                                <ul class="list-inline">
                                     <li class="wish"><a href="#">Thêm vào ưa thích</a></li>
                                     <li class="compare"><a href="#">So sánh</a></li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="clear"></div>
                     </div>
-                    <div class="product_desc">
-                        <div id="horizontalTab">
-                            <ul class="resp-tabs-list">
-                                <li>Product Details</li>
-                                <li>product Tags</li>
-                                <li>Product Reviews</li>
-                                <div class="clear"></div>
-                            </ul>
-                            <div class="resp-tabs-container">
-                                <div class="product-desc">
-                                    @Html.Raw(Model.Detail)
+                </div>
+                <div class="row">
+                    <div id="horizontalTab">
+                        <ul class="resp-tabs-list">
+                            <li>Product Details</li>
+                            <li>product Tags</li>
+                            <li>Product Reviews</li>
+                            <div class="clear"></div>
+                        </ul>
+                        <div class="resp-tabs-container">
+                            <div class="product-desc">
+                                @Html.Raw(Model.Detail)
+                            </div>
+                            <div class="product-tags">
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                                <h4>Add Your Tags:</h4>
+                                <div class="input-box">
+                                    <input type="text" value="">
                                 </div>
-                                <div class="product-tags">
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                                    <h4>Add Your Tags:</h4>
-                                    <div class="input-box">
-                                        <input type="text" value="">
-                                    </div>
-                                    <div class="button"><span><a href="#">Add Tags</a></span></div>
-                                </div>
-                                <div class="review">
-                                    <h4>Lorem ipsum Review by <a href="#">Finibus Bonorum</a></h4>
-                                    <ul>
-                                        <li>Price :<a href="#"><img src="images/price-rating.png" alt="" /></a></li>
-                                        <li>Value :<a href="#"><img src="images/value-rating.png" alt="" /></a></li>
-                                        <li>Quality :<a href="#"><img src="images/quality-rating.png" alt="" /></a></li>
-                                    </ul>
-                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
-                                    <div class="your-review">
-                                        <h3>How Do You Rate This Product?</h3>
-                                        <p>Write Your Own Review?</p>
-                                        <form>
-                                            <div>
-                                                <span><label>Nickname<span class="red">*</span></label></span>
-                                                <span><input type="text" value=""></span>
-                                            </div>
-                                            <div>
-                                                <span><label>Summary of Your Review<span class="red">*</span></label></span>
-                                                <span><input type="text" value=""></span>
-                                            </div>
-                                            <div>
-                                                <span><label>Review<span class="red">*</span></label></span>
-                                                <span><textarea> </textarea></span>
-                                            </div>
-                                            <div>
-                                                <span><input type="submit" value="SUBMIT REVIEW"></span>
-                                            </div>
-                                        </form>
-                                    </div>
+                                <div class="button"><span><a href="#">Add Tags</a></span></div>
+                            </div>
+                            <div class="review">
+                                <h4>Lorem ipsum Review by <a href="#">Finibus Bonorum</a></h4>
+                                <ul>
+                                    <li>Price :<a href="#"><img src="images/price-rating.png" alt="" /></a></li>
+                                    <li>Value :<a href="#"><img src="images/value-rating.png" alt="" /></a></li>
+                                    <li>Quality :<a href="#"><img src="images/quality-rating.png" alt="" /></a></li>
+                                </ul>
+                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+                                <div class="your-review">
+                                    <h3>How Do You Rate This Product?</h3>
+                                    <p>Write Your Own Review?</p>
+                                    <form>
+                                        <div>
+                                            <span><label>Nickname<span class="red">*</span></label></span>
+                                            <span><input type="text" value=""></span>
+                                        </div>
+                                        <div>
+                                            <span><label>Summary of Your Review<span class="red">*</span></label></span>
+                                            <span><input type="text" value=""></span>
+                                        </div>
+                                        <div>
+                                            <span><label>Review<span class="red">*</span></label></span>
+                                            <span><textarea> </textarea></span>
+                                        </div>
+                                        <div>
+                                            <span><input type="submit" value="SUBMIT REVIEW"></span>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="content_bottom">
-                        <div class="heading">
-                            <h3>Sản phẩm liên quan</h3>
-                        </div>
-                        <div class="see">
-                            <p><a href="/san-pham">Tất cả sản phẩm</a></p>
-                        </div>
-                        <div class="clear"></div>
-                    </div>
+                </div>
+                <div class="row">
                     <div class="section group">
                         @{
                             if (relatedProducts != null)
                             {
                                 foreach (var item in relatedProducts)
                                 {
-                        <div class="grid_1_of_4 images_1_of_4">
-                            <a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID"><img src="@item.Image" alt=""></a>
-                            <div class="price" style="border:none">
-                                <div class="add-cart" style="float:none">
-                                    <h4><a href="#">Thêm vào giỏ hàng</a></h4>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
+                                    <div class="grid_1_of_4 images_1_of_4">
+                                        <a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID"><img src="@item.Image" alt=""></a>
+                                        <div class="price" style="border:none">
+                                            <div class="add-cart" style="float:none">
+                                                <h4><a href="#">Thêm vào giỏ hàng</a></h4>
+                                            </div>
+                                            <div class="clear"></div>
+                                        </div>
+                                    </div>
                                 }
                             }
                         }
-                    </div>
-                </div>
-                <div class="rightsidebar span_3_of_1">
-                    @{ Html.RenderAction("ProductCategory", "Product");}
-                    <div class="subscribe">
-                        <h2>Newsletters Signup</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.......</p>
-                        <div class="signup">
-                            <form>
-                                <input type="text" value="E-mail address" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-mail address';"><input type="submit" value="Sign up">
-                            </form>
-                        </div>
-                    </div>
-                    <div class="community-poll">
-                        <h2>Community POll</h2>
-                        <p>What is the main reason for you to purchase products online?</p>
-                        <div class="poll">
-                            <form>
-                                <ul>
-                                    <li>
-                                        <input type="radio" name="vote" class="radio" value="1">
-                                        <span class="label"><label>More convenient shipping and delivery </label></span>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="vote" class="radio" value="2">
-                                        <span class="label"><label for="vote_2">Lower price</label></span>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="vote" class="radio" value="3">
-                                        <span class="label"><label for="vote_3">Bigger choice</label></span>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="vote" class="radio" value="5">
-                                        <span class="label"><label for="vote_5">Payments security </label></span>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="vote" class="radio" value="6">
-                                        <span class="label"><label for="vote_6">30-day Money Back Guarantee </label></span>
-                                    </li>
-                                    <li>
-                                        <input type="radio" name="vote" class="radio" value="7">
-                                        <span class="label"><label for="vote_7">Other.</label></span>
-                                    </li>
-                                </ul>
-                            </form>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 
 
