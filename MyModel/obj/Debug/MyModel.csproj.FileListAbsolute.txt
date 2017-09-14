@@ -17,3 +17,4 @@ D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.dll
 D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.pdb
 D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.Migrations.Initial.resources
 D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.csproj.GenerateResource.Cache
+D:\hoc tap\Projects\OnlineShop\MyModel\obj\Debug\MyModel.Migrations.AddOrderTable.resources

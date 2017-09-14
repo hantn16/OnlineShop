@@ -95,5 +95,6 @@ namespace MyModel.EF
 
         //Thuộc tính navigation
         public virtual ProductCategory ProductCategory { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

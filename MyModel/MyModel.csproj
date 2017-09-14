@@ -75,6 +75,8 @@
     <Compile Include="EF\MenuType.cs" />
     <Compile Include="EF\OnlineShopDbContext.cs" />
     <Compile Include="EF\OnlineShopDbInitializer.cs" />
+    <Compile Include="EF\Order.cs" />
+    <Compile Include="EF\OrderDetail.cs" />
     <Compile Include="EF\Product.cs" />
     <Compile Include="EF\ProductCategory.cs" />
     <Compile Include="EF\Slide.cs" />
@@ -84,6 +86,10 @@
     <Compile Include="Migrations\201708240955239_Initial.cs" />
     <Compile Include="Migrations\201708240955239_Initial.Designer.cs">
       <DependentUpon>201708240955239_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709101450567_AddOrderTable.cs" />
+    <Compile Include="Migrations\201709101450567_AddOrderTable.Designer.cs">
+      <DependentUpon>201709101450567_AddOrderTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -104,6 +110,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201708240955239_Initial.resx">
       <DependentUpon>201708240955239_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709101450567_AddOrderTable.resx">
+      <DependentUpon>201709101450567_AddOrderTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

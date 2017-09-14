@@ -27,6 +27,7 @@
 }
 #myNav ul li a {
     color: firebrick;
+    border-radius:0;
 }
 
 #myNav ul li a:hover {
@@ -43,14 +44,8 @@
 .product-thumbnail .thumbnail{
     max-height:256px;
     width:auto;
-    background-color:yellow;
+    margin-bottom:auto;
 }
-/*div.product-thumbnail .thumbnail a img{
-    max-height:250px;
-    width:100%;
-    display:inline-block;
-    vertical-align:middle;
-}*/
 .product-price div h5 a{
     text-decoration:none;
 }

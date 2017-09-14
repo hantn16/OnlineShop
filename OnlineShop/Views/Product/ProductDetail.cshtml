@@ -68,7 +68,7 @@
             </div>
             <div class="col-sm-9 col-sm-pull-3">
                 <div class="row">
-                    <div class="col-sm-8">
+                    <div class="col-sm-6">
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
@@ -130,26 +130,27 @@
                             </a>
                         </div>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                         <div>
                             <h2>@Model.Name</h2>
-                            <p>@Model.Description</p>
-                            <div class="price">
-                                <p>Giá bán: <span>@(Model.Price.HasValue ? Model.Price.Value.ToString("N0") : "Liên hệ")</span></p>
+                            <p>@(Model.Description.IsEmpty()? "Một sản phẩm với chất lượng tuyệt vời của HomeShoppe" : Model.Description )</p>
+                            <div>
+                                <p>Giá bán: <span style="color:red;font-size:2em;">@(Model.Price.HasValue ? string.Format("{0:0,0 VNĐ}", Model.Price.Value) : "Liên hệ")</span></p>
                             </div>
-                            <div class="available">
-                                <p>Available Options :</p>
+                            <hr />
+                            <div>
+                                <p><strong>Available Options :</strong></p>
                                 <ul class="list-inline">
-                                    <li>
+                                    <li class="list-inline-item">
                                         Color:
-                                        <select>
-                                            <option>Silver</option>
+                                        <select class="list-group">
+                                            <option class="list-group-item">Silver</option>
                                             <option>Black</option>
                                             <option>Dark Black</option>
                                             <option>Red</option>
                                         </select>
                                     </li>
-                                    <li>
+                                    <li class="list-inline-item">
                                         Size:<select>
                                             <option>Large</option>
                                             <option>Medium</option>
@@ -158,7 +159,7 @@
                                             <option>small</option>
                                         </select>
                                     </li>
-                                    <li>
+                                    <li class="list-inline-item">
                                         Quality:<select>
                                             <option>1</option>
                                             <option>2</option>
@@ -169,25 +170,26 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="row">
-                                <div style="display:table">
-                                    <div class="col-xs-6" style="background-color:aqua">
-                                        <p>Chia sẻ :</p>
-                                        <ul class="list-inline">
-                                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                                        </ul>
+                            <div style="display:flex">
+                                    <div class="col-xs-8">
+                                        <p>
+                                            <strong>Chia sẻ :</strong>
+                                            <ul class="list-inline">
+                                                <li><button class="btn" href="#"><i style="font-size:1.5em;" class="fa fa-facebook"></i></button></li>
+                                                <li><button class="btn" href="#"><i style="font-size:1.5em;" class="fa fa-twitter"></i></button></li>
+                                            </ul>
+                                        </p>
                                     </div>
-                                    <div class="col-xs-6" style="background-color:yellow">
-                                        <a href="#" style="display:block">Thêm vào giỏ</a>
+                                    <div class="col-xs-4 pull-right no-padding" style="align-self:center;">
+                                        <button class="btn btn-lg">Thêm vào giỏ</button>
                                     </div>
                                     <div class="clearfix"></div>
-                                </div>
                             </div>
+                            <hr />
                             <div class="row">
                                 <ul class="list-inline">
-                                    <li class="wish"><a href="#">Thêm vào ưa thích</a></li>
-                                    <li class="compare"><a href="#">So sánh</a></li>
+                                    <li><i class="fa fa-"></i><a href="#"> Thêm vào ưa thích</a></li>
+                                    <li><i class="fa fa-"></i><a href="#"> So sánh</a></li>
                                 </ul>
                             </div>
                         </div>

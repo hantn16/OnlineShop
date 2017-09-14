@@ -50,13 +50,14 @@
                                         @Html.DisplayFor(modelItem => item.Category.Name)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Name)
+                                        <a href="/Admin/Contents/Details/@item.ID">@Html.DisplayFor(modelItem => item.Name)</a>
+                                        
                                     </td>
                                     <td>
-                                        <img style="width:64px;height:64px" src ="@Html.DisplayFor(modelItem => item.Image)" />
+                                        <img class="avatarToHover-left" data-toggle="tooltip" title="<img src = '@Html.DisplayFor(modelItem => item.Image)' />" src ="@Html.DisplayFor(modelItem => item.Image)" />
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Status)
+                                        @Html.CheckBoxFor(modelItem => item.Status, new { @onclick = "changeBoolValue("+item.ID+",'/Contents/ChangeStatus')" })
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.TopHot)
@@ -65,9 +66,8 @@
                                         @Html.DisplayFor(modelItem => item.ViewCount)
                                     </td>
 
-                                    <td class="form-inline">
+                                    <td class="form-inline nowrap">
                                         <a href="/Admin/Contents/Edit/@item.ID"><i title="Sửa" class="fa fa-edit"></i></a>
-                                        <a href="/Admin/Contents/Details/@item.ID"><i title="Chi tiết" class="fa fa-search-plus"></i></a>
                                         @Ajax.ActionLink(" ", "Delete", new { @id = item.ID }, new AjaxOptions
                                {
                                    Confirm = "Bạn có chắc chắn xóa bài viết này?",

@@ -1,0 +1,16 @@
+﻿
+table.dataTable tbody td, table.dataTable thead th {
+    vertical-align: middle;
+    text-align:center;
+}
+.table-center > thead th {
+    vertical-align:middle;
+    text-align:center;
+}
+.tooltip-inner{
+    max-width:none;
+}
+.avatarToHover, .avatarToHover-left, .avatarToHover-right, .avatarToHover-bottom, .avatarToHover-top {
+    height: 64px;
+    width: auto;
+}

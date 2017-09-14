@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using MyModel.EF;
 using MyModel.DAO;
+using MyTools;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -118,6 +119,36 @@ namespace OnlineShop.Areas.Admin.Controllers
                 SetAlert("Xóa contact thành công", AlertType.Success);
             }
             return RedirectToAction("Index");
+        }
+        [HttpPost]
+        public JsonResult ChangeStatus(long id)
+        {
+            try
+            {
+                Contact contact = db.Contacts.Find(id);
+                if (contact.ChangeBoolValue("Status"))
+                {
+                    db.SaveChanges();
+                    return Json(new
+                    {
+                        status = true,
+                        value = contact.Status,
+                        message = "Thay đổi thuộc tính status thành công"
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    throw new Exception("Thay đổi thuộc tính status thất bại");
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new {
+                    status = false,message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         protected override void Dispose(bool disposing)

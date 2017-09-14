@@ -1,0 +1,66 @@
+﻿@model List<OnlineShop.Models.CartItem>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <p>
+                    Thông tin chi tiết giỏ hàng
+                </p>
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped text-center">
+                        <thead>
+                            <tr>
+                                <th>Mã sản phẩm</th>
+                                <th>Tên sản phẩm</th>
+                                <th>Hình ảnh</th>
+                                <th>Số lượng</th>
+                                <th>Đơn giá</th>
+                                <th>Thành tiền</th>
+                                <th>#</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr id="Row_@item.Product.ID">
+                                    <td>@item.Product.Code</td>
+                                    <td>@item.Product.Name</td>
+                                    <td><img src="@item.Product.Image" style="width:100px" /></td>
+                                    <td>
+                                        <input type="text" class="txtQuantity" value="@item.Quantity" />
+                                    </td>
+                                    <td>@item.Product.Price.GetValueOrDefault(0).ToString("N0")</td>
+                                    <td>@((item.Product.Price.GetValueOrDefault(0) * item.Quantity).ToString("N0"))</td>
+                                    <td>
+                                        @Ajax.ActionLink(" ", "Delete","Carts", new { productid = item.Product.ID }, new AjaxOptions
+                                   {
+                                       Confirm = "Bạn thực sự muốn xóa sản phẩm này?",
+                                       OnComplete = "$('#Row_" + item.Product.ID + "').remove()",
+                                       HttpMethod = "Post"
+                                   }, new { @class = "glyphicon glyphicon-remove text-danger" })
+                                    </td>
+                                </tr>
+                            }
+
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7" class="text-right">
+                                    <button type="button" id="btn_Back" class="btn btn-default">Trở về</button>
+                                    <button type="button" id="btn_Update" class="btn btn-success">Cập nhật</button>
+                                    <button type="button" id="btn_Payment" class="btn btn-primary">Thanh toán</button>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+</script>

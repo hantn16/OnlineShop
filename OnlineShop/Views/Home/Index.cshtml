@@ -5,6 +5,7 @@
     var slides = (List<MyModel.EF.Slide>)ViewBag.Slides;
     var listNewProducts = (List<MyModel.EF.Product>)ViewBag.ListNewProducts;
     var listTopHotProducts = (List<MyModel.EF.Product>)ViewBag.ListTopHotProducts;
+    var listCartItem = (List<OnlineShop.Models.CartItem>)Session["CartSession"];
 }
 @section slide {
     <div class="col-sm-3 no-padding">
@@ -15,34 +16,34 @@
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 @for (int i = 0; i < slides.Count; i++)
+                {
+                    if (i == 0)
                     {
-                        if (i == 0)
-                        {
-                <li data-target="#myCarousel" data-slide-to="@i" class="active"></li>
-                        }
-                        else
-                        {
-                <li data-target="#myCarousel" data-slide-to="@i"></li>
-                        }
+                        <li data-target="#myCarousel" data-slide-to="@i" class="active"></li>
                     }
+                    else
+                    {
+                        <li data-target="#myCarousel" data-slide-to="@i"></li>
+                    }
+                }
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
                 @for (int i = 0; i < slides.Count; i++)
+                {
+                    if (i == 0)
                     {
-                        if (i == 0)
-                        {
-                <div class="item active">
-                    <img src="@slides[i].Image" alt="Slide-@slides[i].ID">
-                </div>
-                        }
-                        else
-                        {
-                <div class="item">
-                    <img src="@slides[i].Image" alt="Slide-@slides[i].ID">
-                </div>
-                        }
+                        <div class="item active">
+                            <img src="@slides[i].Image" alt="Slide-@slides[i].ID">
+                        </div>
                     }
+                    else
+                    {
+                        <div class="item">
+                            <img src="@slides[i].Image" alt="Slide-@slides[i].ID">
+                        </div>
+                    }
+                }
             </div>
 
             <!-- Left and right controls -->
@@ -73,22 +74,27 @@
             @foreach (var item in listNewProducts)
             {
                 <div class="col-xs-6 col-sm-3">
-                    <div class="thumbnail product-thumbnail">
-                        <div>
+                    <div class="product-thumbnail">
+                        <div class="thumbnail">
                             <a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID"><img class="img-responsive" src="@item.Image" alt="@item.Name" /></a>
                         </div>
                         <div class="product-name">
                             <p class="text-center">@item.Name </p>
                         </div>
-
                         <div class="product-price">
                             <div class="price col-xs-7 no-padding">
                                 <p class="text-center"><strong><span>@(item.Price.HasValue ? string.Format("{0:0,0 VNĐ}", item.Price.Value) : "liên hệ")</span></strong></p>
                             </div>
                             <div class="cart col-xs-5 no-padding">
-                                <h5 class="text-center"><a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID">Thêm vào giỏ</a></h5>
+                                <h5 class="text-center">
+                                    <a class="add-cart" style="display:block;cursor:pointer" data-productid="@item.ID">Thêm vào giỏ</a>
+                                    @*@Ajax.ActionLink("Thêm vào giỏ", "AddItem", "Carts", new { productID = item.ID, quantity = 1 }, new AjaxOptions
+                                        {
+                                            Confirm = "Bạn chuẩn bị thêm mặt hàng sau vào giỏ hàng\n Tên:" + item.Name + "\n Số lượng: 1\n Đồng ý không?",
+                                            HttpMethod = "Post"
+                                        })*@
+                                </h5>
                             </div>
-                            <div class="clear"></div>
                         </div>
                     </div>
                 </div>
@@ -125,7 +131,9 @@
                                 <p class="text-center"><strong><span>@(item.Price.HasValue ? string.Format("{0:0,0 VNĐ}", item.Price.Value) : "liên hệ")</span></strong></p>
                             </div>
                             <div class="cart col-xs-5 no-padding">
-                                <h5 class="text-center"><a href="/san-pham/@item.ProductCategory.MetaTitle/@item.MetaTitle-@item.ID">Thêm vào giỏ</a></h5>
+                                <h5 class="text-center">
+                                    <a class="add-cart" style="display:block;cursor:pointer" data-productid="@item.ID">Thêm vào giỏ</a>
+                                </h5>
                             </div>
                             <div class="clear"></div>
                         </div>

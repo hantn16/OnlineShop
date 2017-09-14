@@ -5,6 +5,14 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @section header {Thêm mới bài viết}
+<script>
+    $(function () {
+        $('#TopHot').datetimepicker({
+            viewMode: 'days',
+            format: 'DD/MM/YYYY'
+        });
+    });
+</script>
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-primary">

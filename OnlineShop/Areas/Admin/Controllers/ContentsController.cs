@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using MyModel.EF;
 using MyModel.DAO;
 using OnlineShop.Common;
+using MyTools;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -128,7 +129,38 @@ namespace OnlineShop.Areas.Admin.Controllers
             }
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public JsonResult ChangeStatus(long id)
+        {
+            try
+            {
+                Content content = db.Contents.Find(id);
+                if (content.ChangeBoolValue("Status"))
+                {
+                    db.SaveChanges();
+                    return Json(new
+                    {
+                        status = true,
+                        value = content.Status,
+                        message = "Thay đổi thuộc tính status thành công"
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    throw new Exception("Thay đổi thuộc tính status thất bại");
+                }
 
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new
+                {
+                    status = false,
+                    message = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 
-@section header{Danh sách Menu}
+@section header{Danh Sách Liên Lạc}
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -43,7 +43,7 @@
                                         @Html.ActionLink("Click vào đây để xem nội dung","Details", new {id = item.ID })
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Status)
+                                        @Html.CheckBoxFor(modelItem => item.Status,new { @onclick = "changeBoolValue("+item.ID+",'"+"/Contacts/ChangeStatus"+"')" })
                                     </td>
                                     <td>
                                         @Html.ActionLink(" ", "Edit", new { id = item.ID },new { @class = "fa fa-edit",@title = "Sửa" })

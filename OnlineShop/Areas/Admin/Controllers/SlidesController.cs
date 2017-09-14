@@ -9,6 +9,8 @@ using System.Web.Mvc;
 using MyModel.EF;
 using MyModel.DAO;
 using OnlineShop.Common;
+using MyTools;
+using System.Web.Helpers;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -134,7 +136,37 @@ namespace OnlineShop.Areas.Admin.Controllers
             if(new SlideDao().Delete(id)) { SetAlert("Xóa slide thành công", AlertType.Success); } else { ModelState.AddModelError("DeleteFailed", "Xóa slide thất bại"); }
             return RedirectToAction("Index");
         }
+        [HttpPost]
+        public JsonResult ChangeStatus(long id)
+        {
+            try
+            {
+                Slide slide = db.Slides.Find(id);
+                if (slide.ChangeBoolValue("Status"))
+                {
+                    db.SaveChanges();
+                    return Json(new
+                    {
+                        status = true,
+                        value = slide.Status,
+                        message = "Thay đổi giá trị status thành công"
+                    });
+                }
+                else
+                {
+                    throw new Exception("Change Status thất bại");
+                }
+            }
+            catch (Exception)
+            {
 
+                return Json(new {
+                    status = false,
+                    message = "Thay đổi giá trị status thất bại"
+                });
+            }
+
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

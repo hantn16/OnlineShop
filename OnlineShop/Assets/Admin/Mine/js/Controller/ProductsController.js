@@ -1,7 +1,7 @@
 ﻿var product = {
-    Init: function () {       
+    Init: function () {
         product.RegisterEvents();
-       
+
     },
     RegisterEvents: function () {
         $('.btn-images').off('click').on('click', function (e) {
@@ -28,7 +28,7 @@
             var id = $('#hidProductID').val();
             $.each($('#ImageList img'), function (i, item) {
                 images.push($(item).prop('src'));
-            })
+            });
             $.ajax({
                 url: '/Admin/Products/SaveImages',
                 type: 'POST',
@@ -43,19 +43,17 @@
                         $('#ImageList').html('');
                         alert("Lưu thành công");
                     }
-
-                    
                 }
             });
         });
     },
     //Hàm load ảnh đã có nên để edit
-    LoadImages : function () {
+    LoadImages: function () {
         $.ajax({
             url: '/Admin/Products/LoadImages',
             type: 'GET',
             data: {
-                id: $('#hidProductID').val(),
+                id: $('#hidProductID').val()
             },
             datatype: 'json',
             success: function (response) {
@@ -63,8 +61,8 @@
                     var data = response.data;
                     var html = '';
                     $.each(data, function (i, item) {
-                        html += '<div style = "float:left"><img src="' + item + '" width="100" /><a href="#" class="btnDelImage"><i class = "fa fa-times"></i></a></div>'
-                    })
+                        html += '<div style = "float:left"><img src="' + item + '" width="100" /><a href="#" class="btnDelImage"><i class = "fa fa-times"></i></a></div>';
+                    });
                     $('#ImageList').html(html);
                     //Gán lại sự kiện delete ảnh
                     $('.btnDelImage').off('click').on('click', function (e) {
@@ -78,5 +76,5 @@
             }
         });
     }
-}
+};
 product.Init();

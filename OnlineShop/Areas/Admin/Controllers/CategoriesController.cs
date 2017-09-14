@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using MyModel.EF;
 using MyModel.DAO;
+using OnlineShop.Common;
+using MyTools;
 
 namespace OnlineShop.Areas.Admin.Controllers
 {
@@ -53,9 +55,17 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //Set CreateDate,CreateBy
+                category.CreatedDate = DateTime.Now;
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                category.CreatedBy = session.UserName;
+
+                //Set MetaTitle
+                category.MetaTitle = category.Name.ToLower().ConvertToUnSign();
+                if (new CategoryDao().Insert(category)>0)
+                {
+                    return RedirectToAction("Index");
+                }               
             }
 
             SetViewBag();
@@ -87,37 +97,31 @@ namespace OnlineShop.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                //Set ModifiedDate,ModifiedBy
+                category.ModifiedDate = DateTime.Now;
+                var session = (UserLogin)Session[CommonConstants.USER_SESSION];
+                category.ModifiedBy = session.UserName;
+
+                //Set MetaTitle
+                category.MetaTitle = category.Name.ToLower().ConvertToUnSign();
+                if (new CategoryDao().Update(category))
+                {
+                    return RedirectToAction("Index");
+                }              
             }
             ViewBag.ParentID = new SelectList(db.Categories, "ID", "Name", category.ParentID);
             return View(category);
         }
 
-        // GET: Admin/Categories/Delete/5
-        public ActionResult Delete(long? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = db.Categories.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-            return View(category);
-        }
 
         // POST: Admin/Categories/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(long id)
+        [HttpDelete]
+        public ActionResult Delete(long id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
+            if (!new CategoryDao().Delete(id))
+            {
+                ModelState.AddModelError("", "Xóa danh mục thất bại");
+            }
             return RedirectToAction("Index");
         }
 

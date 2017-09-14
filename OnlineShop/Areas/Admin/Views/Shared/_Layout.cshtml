@@ -13,7 +13,7 @@
     <!-- Check Finder -->
     <script src="~/Assets/Admin/ckfinder/ckfinder.js"></script>
     <!-- Bootstrap Core CSS -->
-    <link href="/Assets/Admin/Boostrap3/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    @Styles.Render("~/Content/css")
     <!-- DataTable Bootstrap-->
     <link href="/Assets/Admin/Boostrap3/vendor/datatables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
     <!-- MetisMenu CSS -->
@@ -22,6 +22,7 @@
     <link href="/Assets/Admin/Boostrap3/dist/css/sb-admin-2.css" rel="stylesheet">
     <!-- Custom Fonts -->
     <link href="/Assets/Admin/Boostrap3/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="/Assets/Admin/Mine/css/MyAdminCSS.css" rel="stylesheet" />
     @RenderSection("cssHeader",required:false)
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -56,8 +57,10 @@
     <!-- jQuery -->    
     <script src="~/Assets/Admin/Boostrap3/vendor/jquery/jquery.min.js"></script>
     <script src="~/Assets/Admin/Boostrap3/js/jquery.unobtrusive-ajax.min.js"></script>
+    <!--Moment-->
+    @Scripts.Render("~/bundles/moment")
     <!-- Bootstrap Core JavaScript -->
-    <script src="~/Assets/Admin/Boostrap3/vendor/bootstrap/js/bootstrap.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
     <!-- DataTable Boostrap JavaScript-->
     <script src="~/Assets/Admin/Boostrap3/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="~/Assets/Admin/Boostrap3/vendor/datatables/js/dataTables.bootstrap.min.js"></script>    
